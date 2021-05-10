@@ -1,22 +1,30 @@
 ﻿using System;
 using System.Linq;
 using UniRx;
-using UtilitiesUniRx.Utility;
+using UtilitiesUniRx.Utility.Buttons;
 
 namespace UtilitiesUniRx.Extensions
 {
     public static class UniRxExtensions
     {
-        public static IObservable<T> OncePerFrame<T>(this IObservable<T> observable)
+        public static IDisposable SubscribeBlind<T>(this IObservable<T> source, Action action)
         {
-            return observable
-                .BatchFrame()
-                .Select(batch => batch.Last());
+            return source.Subscribe(_ => action());
         }
 
-        public static IDisposable BindTo(this IReactiveCommand<Unit> command, ICommandBindableButton button)
+        public static IDisposable SubscribeBlind<T, TResult>(this IObservable<T> source, Func<TResult> function)
         {
-            return command.BindTo(button.AsCommandBindable);
+            return source.Subscribe(_ => function());
+        }
+
+        public static IObservable<T> SkipInitialValue<T>(this IReadOnlyReactiveProperty<T> source)
+        {
+            return source.HasValue ? source.Skip(1) : source;
+        }
+
+        public static IObservable<T> IfNotNull<T>(this IObservable<T> elements)
+        {
+            return elements.Where(value => value != null);
         }
 
         public static IObservable<Pair<bool>> IfSwitchedToTrue(this IObservable<bool> observable)
@@ -29,6 +37,37 @@ namespace UtilitiesUniRx.Extensions
         {
             return observable.Pairwise()
                 .Where(pair => pair.Previous && !pair.Current);
+        }
+
+        public static IObservable<Pair<int>> IfIncreased(this IObservable<int> observable)
+        {
+            return observable.Pairwise()
+                .Where(pair => pair.Previous < pair.Current);
+        }
+
+        public static IObservable<Pair<int>> IfDecreased(this IObservable<int> observable)
+        {
+            return observable.Pairwise()
+                .Where(pair => pair.Previous > pair.Current);
+        }
+
+        public static IObservable<Pair<double>> IfIncreased(this IObservable<double> observable)
+        {
+            return observable.Pairwise()
+                .Where(pair => pair.Previous < pair.Current);
+        }
+
+        public static IObservable<Pair<double>> IfDecreased(this IObservable<double> observable)
+        {
+            return observable.Pairwise()
+                .Where(pair => pair.Previous > pair.Current);
+        }
+
+        public static IObservable<T> OncePerFrame<T>(this IObservable<T> observable)
+        {
+            return observable
+                .BatchFrame()
+                .Select(batch => batch.Last());
         }
 
         public static IObservable<Unit> OnAnyCollectionChange<T>(this IReadOnlyReactiveCollection<T> reactiveCollection)
@@ -68,33 +107,11 @@ namespace UtilitiesUniRx.Extensions
                 ));
         }
 
-        public static IObservable<T> SkipInitialValue<T>(this IReadOnlyReactiveProperty<T> source)
-        {
-            return source.HasValue ? source.Skip(1) : source;
-        }
 
-        public static IObservable<Pair<int>> IfIncreased(this IObservable<int> observable)
-        {
-            return observable.Pairwise()
-                .Where(pair => pair.Previous < pair.Current);
-        }
 
-        public static IObservable<Pair<int>> IfDecreased(this IObservable<int> observable)
+        public static IDisposable BindTo(this IReactiveCommand<Unit> command, ICommandBindableButton button)
         {
-            return observable.Pairwise()
-                .Where(pair => pair.Previous > pair.Current);
-        }
-
-        public static IObservable<Pair<double>> IfIncreased(this IObservable<double> observable)
-        {
-            return observable.Pairwise()
-                .Where(pair => pair.Previous < pair.Current);
-        }
-
-        public static IObservable<Pair<double>> IfDecreased(this IObservable<double> observable)
-        {
-            return observable.Pairwise()
-                .Where(pair => pair.Previous > pair.Current);
+            return command.BindTo(button.AsCommandBindable);
         }
     }
 }

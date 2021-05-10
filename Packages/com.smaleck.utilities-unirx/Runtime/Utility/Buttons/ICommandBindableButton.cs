@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-namespace UtilitiesUniRx.Utility
+namespace UtilitiesUniRx.Utility.Buttons
 {
     public interface ICommandBindableButton : IRxButton
     {

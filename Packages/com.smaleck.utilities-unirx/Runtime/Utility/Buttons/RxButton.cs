@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace UtilitiesUniRx.Utility
+namespace UtilitiesUniRx.Utility.Buttons
 {
     [DisallowMultipleComponent]
     public class RxButton : Button, IRxButton
@@ -17,14 +17,14 @@ namespace UtilitiesUniRx.Utility
         private readonly Subject<Unit> _inactiveButtonClickedObservable = new Subject<Unit>();
         public IObservable<Unit> OnInactiveButtonClicked => _inactiveButtonClickedObservable;
 
-        private IReadOnlyReactiveProperty<bool> _isInteractable = new ReactiveProperty<bool>();
-        public IReadOnlyReactiveProperty<bool> IsInteractable
+        private IReadOnlyReactiveProperty<bool> _isEnabled = new ReactiveProperty<bool>();
+        public IReadOnlyReactiveProperty<bool> IsEnabled
         {
             get
             {
-                return _isInteractable != null
-                    ? _isInteractable
-                    : (_isInteractable = this
+                return _isEnabled != null
+                    ? _isEnabled
+                    : (_isEnabled = this
                         .ObserveEveryValueChanged(b => b.interactable)
                         .ToReadOnlyReactiveProperty());
             }
