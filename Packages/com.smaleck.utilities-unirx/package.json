@@ -1,0 +1,21 @@
+{
+  "name": "com.smaleck.utilities-unirx",
+  "version": "1.0.0",
+  "displayName": "UtilitiesUniRx",
+  "description": "Collection of general purpose utilities and extensions for UniRx.",
+  "unity": "2019.1",
+  "unityRelease": "0b5",
+  "dependencies": {
+    "com.neuecc.unirx": "7.1.0"
+  },
+  "keywords": [
+    "utility",
+    "unirx",
+    "reactive"
+  ],
+  "author": {
+    "name": "Sebastian Maleck",
+    "email": "s.maleck@live.de",
+    "url": "https://github.com/SMaleck/unity-utility-unirx"
+  }
+}

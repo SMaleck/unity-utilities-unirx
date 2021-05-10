@@ -1,11 +1,18 @@
 {
   "dependencies": {
+    "com.neuecc.unirx": {
+      "version": "7.1.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.smaleck.utilities-unirx": {
       "version": "file:com.smaleck.utilities-unirx",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.unity.test-framework": "^1.1.24"
+        "com.unity.test-framework": "1.1.24"
       }
     },
     "com.unity.collab-proxy": {
