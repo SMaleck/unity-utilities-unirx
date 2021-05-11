@@ -40,6 +40,3 @@ To use this package in your Unity project, you have to manually add it to you `m
     ]
   }
 ```
-
-## How To
-See [here](./Packages/com.smaleck.utilities-unirx/README.md) for details.
