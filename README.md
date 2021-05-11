@@ -17,7 +17,7 @@ To use this package in your Unity project, you have to manually add it to you `m
 ```json
 {
   "dependencies": {
-    "com.smaleck.utilities-unirx": "git://github.com/SMaleck/unity-utilities-unirx.git?path=/Packages/com.smaleck.utilities-unirx#v1.0.0"
+    "com.smaleck.utilities-unirx": "git://github.com/SMaleck/unity-utilities-unirx.git#v1.0.0"
   }
 }
 ```
@@ -26,7 +26,7 @@ To use this package in your Unity project, you have to manually add it to you `m
 ```json
 {
   "dependencies": {
-    "com.smaleck.utilities-unirx": "git://github.com/SMaleck/unity-utilities-unirx.git?path=/Packages/com.smaleck.utilities-unirx#v1.0.0"
+    "com.smaleck.utilities-unirx": "git://github.com/SMaleck/unity-utilities-unirx.git#v1.0.0"
   },
   "scopedRegistries": [
       {
